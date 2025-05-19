@@ -1,5 +1,7 @@
  -- Blinkit_SQL_Project
+
 -- create database Blinkit_co
+
 -- create table blinkit_data 
 -- insert into blinkit_data (item_fat_content text,
 -- item_identifier text,
@@ -14,6 +16,8 @@
 -- 	sales double,
 -- 	rating int)
 
+-- To Filter the Data :
+
 -- select *from blinkit_data
 -- where Item Fat Content = 'Regular
 -- alter table blinkit_data
@@ -23,9 +27,12 @@
 -- case when item_fat_content = 'Regular' then 'regular'
 -- else item_fat_content
 -- end
+
 -- General Query : Display types of item_fat_content
 -- select distinct(item_fat_content) from blinkit_data
--- K.P.I's
+
+-- K.P.I's :
+
 -- 1.Total sales
 -- select round(sum(total_sales)/1000000,3) as sales_in_millions
 --  from blinkit_data
@@ -42,6 +49,7 @@
 -- select round(avg(rating),1) as average_rating
 -- from blinkit_data
 
+-- Granulary Requirements : 
 -- 5.total sales by fat content
 -- select item_fat_content,round(sum(sales),2) as total_sales
 -- from blinkit_data
@@ -53,6 +61,7 @@
 -- from blinkit_data
 -- group by 1
 -- order by 2 desc
+
 -- 7. Show outlet location types along with their corresponding sales totals for each fat content type
 -- select outlet_location_type,
 -- round(sum(case when item_fat_content = 'low fat' then sales else 0 end),2) as low_fat,
@@ -60,20 +69,26 @@
 -- from blinkit_data
 -- group by 1
 -- order by 1
+
 -- 8.  Total Sales by Outlet Establishment year
 -- select outlet_established_yr,round(sum(sales),2) as total_sales
 -- from blinkit_data
 -- group by 1
 -- order by 1
+
+-- Chart Requirements : 
+
 -- 9. Percentage of Sales by Outlet Size
 -- select outlet_size,round(count(*)*100/sum(count(*)) over(),2) as sales_in_percent
 -- from blinkit_data
 -- group by 1
+
 -- 10. Sales by Outlet Location
 -- select outlet_location_type,round(sum(sales),2) as total_sales
 -- from blinkit_data
 -- group by 1
 -- order by 2 desc
+
 -- 11.All Metrics by Outlet Type:
 -- select outlet_type,
 -- round(avg(item_visibility),2) as avg_item_visibility,
@@ -85,23 +100,29 @@
 -- from blinkit_data
 -- group by 1
 -- order by 5 desc
+
 -- 12. Top 5 Selling Items by Average Sales per Outlet Type
 select item_type,outlet_type,round(avg(sales),2) as avg_sales
 from blinkit_data
 group by 1,2
 order by 3 asc
 limit 5
+
+Advance SQL Querie's : 
+
 -- 13.Sales Contribution % by Item Type per Outlet Type
 -- select item_type,outlet_type,sum(sales)*100/sum(sum(sales)) over(partition by outlet_type) as sales_contribution_percent
 -- from blinkit_data
 --  group by 1,2
 --  order by 3 desc
+
 -- 14.Identify Underperforming Outlets (Sales Below Overall Average)
 -- select outlet_identifier,avg(sales) as sales_below_overall_avg
 -- from blinkit_data
 -- group by 1
+
 -- having sales_below_overall_avg < (select avg(sales) from blinkit_data)
--- 14. Sales Comparison Between 'Low Fat' and 'Regular' by Year
+-- 15. Sales Comparison Between 'Low Fat' and 'Regular' by Year
 -- select outlet_established_yr,
 -- round(sum(case when item_fat_content = 'low fat' then sales else 0 end),2) as low_fat_sales,
 -- round(sum(case when item_fat_content ='regular' then sales else 0 end),2) as regular_sales
